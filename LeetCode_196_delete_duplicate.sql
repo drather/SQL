@@ -9,6 +9,7 @@
 --
 --DELETE 절의 WHERE 절을 보면 id 가 삭제하지 말아야 할 테이블의 id 에 속해있지 않다면 삭제한다는 뜻이다.
 
+-- solution 1 with subquery
 DELETE
 FROM Person
 WHERE id not in (
@@ -20,3 +21,8 @@ WHERE id not in (
     ) should_not_be_deleted
 )
 
+-- solution 2 with inner join
+DELETE p2
+FROM person as p1
+INNER JOIN person as p2 ON p1.email = p2.email
+WHERE p1.id < p2.id
